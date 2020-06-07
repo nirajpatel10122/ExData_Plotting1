@@ -118,22 +118,17 @@ The four plots that you will need to construct are shown below.
 
 hist(table1$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="green")
 
-
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
-
+![](plot1.png)
 
 ### Plot 2
 
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
-
+![](plot2.png)
 
 plot(table1$Global_active_power~table1$dateandTime, type="l", ylab="Global Active Power (kilowatts)", xlab="", col = "blue")
 
 ### Plot 3
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
-
-### Plot 3
+![](plot3.png)
 
  with(table1, {
     plot(Sub_metering_1~dateandTime, type="l",
@@ -144,11 +139,9 @@ plot(table1$Global_active_power~table1$dateandTime, type="l", ylab="Global Activ
   legend("topright", col=c("black", "red", "blue"), lwd=c(1,1,1), 
          c("Sub Metering 1", "Sub Metering 2", "Sub Metering 3"))
 
-
-
 ### Plot 4
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
+![](plot4.png)
 
   par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
   with(table1, {
