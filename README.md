@@ -35,9 +35,31 @@ web site</a>:
 
 ## Loading the data
 
+table1 <- read.table("household_power_consumption.txt", header=TRUE, sep=";", na.strings = "?", colClasses = c('character','character','numeric','numeric','numeric','numeric','numeric','numeric','numeric'))
 
+## Format date to Type Date
+table1$Date <- as.Date(table1$Date, "%d/%m/%Y")
+  
+## Filter data set from Feb. 1, 2007 to Feb. 2, 2007
+table1 <- subset(table1,Date >= as.Date("2007-2-1") & Date <= as.Date("2007-2-2"))
+  
+## Remove incomplete observation
+table1 <- table1[complete.cases(table1),]
 
-
+## Combine Date and Time column
+dateandTime <- paste(table1$Date, table1$Time)
+  
+## Name the vector
+dateandTime <- setNames(dateandTime, "DateandTime")
+  
+## Remove Date and Time column
+table1 <- table1[ ,!(names(table1) %in% c("Date","Time"))]
+  
+## Add DateTime column
+table1 <- cbind(dateandTime, table1)
+  
+## Format dateTime Column
+table1$dateandTime <- as.POSIXct(dateandTime)
 
 When loading the dataset into R, please consider the following:
 
@@ -94,6 +116,8 @@ The four plots that you will need to construct are shown below.
 
 ### Plot 1
 
+hist(table1$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="green")
+
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 
@@ -103,12 +127,41 @@ The four plots that you will need to construct are shown below.
 ![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
 
+plot(table1$Global_active_power~table1$dateandTime, type="l", ylab="Global Active Power (kilowatts)", xlab="", col = "blue")
+
 ### Plot 3
 
 ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+
+### Plot 3
+
+ with(table1, {
+    plot(Sub_metering_1~dateandTime, type="l",
+         ylab="Global Active Power (kilowatts)", xlab="")
+    lines(Sub_metering_2~dateandTime,col='Red')
+    lines(Sub_metering_3~dateandTime,col='Blue')
+  })
+  legend("topright", col=c("black", "red", "blue"), lwd=c(1,1,1), 
+         c("Sub Metering 1", "Sub Metering 2", "Sub Metering 3"))
+
 
 
 ### Plot 4
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
+  par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
+  with(table1, {
+    plot(Global_active_power~dateandTime, type="l", 
+         ylab="Global Active Power (kilowatts)", xlab="", col = "blue")
+    plot(Voltage~dateandTime, type="l", 
+         ylab="Voltage (volt)", xlab="")
+    plot(Sub_metering_1~dateandTime, type="l", 
+         ylab="Global Active Power (kilowatts)", xlab="", col = "blue")
+    lines(Sub_metering_2~dateandTime,col='Red')
+    lines(Sub_metering_3~dateandTime,col='Blue')
+    legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2, bty="n",
+           legend=c("Sub Metering 1", "Sub Metering 2", "Sub Metering 3"))
+    plot(Global_reactive_power~dateandTime, type="l", 
+         ylab="Global Rective Power (kilowatts)",xlab="", col = "blue")
+  })
