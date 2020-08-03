@@ -135,11 +135,11 @@ The four plots that you will need to construct are shown below.
 
 ### Plot 1
 
+![](plot1.png)
+
 ```
 hist(table1$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="green")
 ```
-
-![](plot1.png)
 
 ### Plot 2
 
@@ -162,7 +162,7 @@ with(table1, {
   })
   legend("topright", col=c("black", "red", "blue"), lwd=c(1,1,1), 
          c("Sub Metering 1", "Sub Metering 2", "Sub Metering 3"))
-         ```
+ ```
         
 
 ### Plot 4
@@ -185,5 +185,4 @@ with(table1, {
     plot(Global_reactive_power~dateandTime, type="l", 
          ylab="Global Rective Power (kilowatts)",xlab="", col = "blue")
   })
-  
-  ```
+```
