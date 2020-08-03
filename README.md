@@ -35,31 +35,40 @@ web site</a>:
 
 ## Loading the data
 
-table1 <- read.table("household_power_consumption.txt", header=TRUE, sep=";", na.strings = "?", colClasses = c('character','character','numeric','numeric','numeric','numeric','numeric','numeric','numeric'))
+```table1 <- read.table("household_power_consumption.txt", header=TRUE, sep=";", na.strings = "?", colClasses = c('character','character','numeric','numeric','numeric','numeric','numeric','numeric','numeric'))
+```
 
 ## Format date to Type Date
-table1$Date <- as.Date(table1$Date, "%d/%m/%Y")
+```table1$Date <- as.Date(table1$Date, "%d/%m/%Y")
+```
   
 ## Filter data set from Feb. 1, 2007 to Feb. 2, 2007
-table1 <- subset(table1,Date >= as.Date("2007-2-1") & Date <= as.Date("2007-2-2"))
+```table1 <- subset(table1,Date >= as.Date("2007-2-1") & Date <= as.Date("2007-2-2"))
+```
   
 ## Remove incomplete observation
-table1 <- table1[complete.cases(table1),]
+```table1 <- table1[complete.cases(table1),]
+```
 
 ## Combine Date and Time column
-dateandTime <- paste(table1$Date, table1$Time)
+```dateandTime <- paste(table1$Date, table1$Time)
+```
   
 ## Name the vector
-dateandTime <- setNames(dateandTime, "DateandTime")
+```dateandTime <- setNames(dateandTime, "DateandTime")
+```
   
 ## Remove Date and Time column
-table1 <- table1[ ,!(names(table1) %in% c("Date","Time"))]
+```table1 <- table1[ ,!(names(table1) %in% c("Date","Time"))]
+```
   
 ## Add DateTime column
-table1 <- cbind(dateandTime, table1)
+```table1 <- cbind(dateandTime, table1)
+```
   
 ## Format dateTime Column
-table1$dateandTime <- as.POSIXct(dateandTime)
+```table1$dateandTime <- as.POSIXct(dateandTime)
+```
 
 When loading the dataset into R, please consider the following:
 
@@ -116,7 +125,8 @@ The four plots that you will need to construct are shown below.
 
 ### Plot 1
 
-hist(table1$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="green")
+```hist(table1$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="green")
+```
 
 ![](plot1.png)
 
@@ -124,13 +134,14 @@ hist(table1$Global_active_power, main="Global Active Power", xlab = "Global Acti
 
 ![](plot2.png)
 
-plot(table1$Global_active_power~table1$dateandTime, type="l", ylab="Global Active Power (kilowatts)", xlab="", col = "blue")
+```plot(table1$Global_active_power~table1$dateandTime, type="l", ylab="Global Active Power (kilowatts)", xlab="", col = "blue")
+```
 
 ### Plot 3
 
 ![](plot3.png)
 
- with(table1, {
+``` with(table1, {
     plot(Sub_metering_1~dateandTime, type="l",
          ylab="Global Active Power (kilowatts)", xlab="")
     lines(Sub_metering_2~dateandTime,col='Red')
@@ -138,12 +149,14 @@ plot(table1$Global_active_power~table1$dateandTime, type="l", ylab="Global Activ
   })
   legend("topright", col=c("black", "red", "blue"), lwd=c(1,1,1), 
          c("Sub Metering 1", "Sub Metering 2", "Sub Metering 3"))
+         ```
+        
 
 ### Plot 4
 
 ![](plot4.png)
 
-  par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
+ ``` par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
   with(table1, {
     plot(Global_active_power~dateandTime, type="l", 
          ylab="Global Active Power (kilowatts)", xlab="", col = "blue")
@@ -158,3 +171,4 @@ plot(table1$Global_active_power~table1$dateandTime, type="l", ylab="Global Activ
     plot(Global_reactive_power~dateandTime, type="l", 
          ylab="Global Rective Power (kilowatts)",xlab="", col = "blue")
   })
+  ```
