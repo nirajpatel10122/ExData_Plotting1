@@ -127,22 +127,13 @@ The four plots that you will need to construct are shown below.
 ```
 ### Plot 1
 
-![](plot1.png)
-
-hist(table1$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="green")
-
+hist(table1$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="blue")
 
 ### Plot 2
 
-![](plot2.png)
-
 plot(table1$Global_active_power~table1$dateandTime, type="l", ylab="Global Active Power (kilowatts)", xlab="", col = "blue")
 
-
 ### Plot 3
-
-![](plot3.png)
-
 
 with(table1, {
     plot(Sub_metering_1~dateandTime, type="l",
@@ -155,8 +146,6 @@ with(table1, {
         
 
 ### Plot 4
-
-![](plot4.png)
 
  par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
   with(table1, {
